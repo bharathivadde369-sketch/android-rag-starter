@@ -1,57 +1,40 @@
-# Android RAG Starter
+# Android RAG Starter 🚀
 
-A minimal starter project demonstrating a simple Retrieval-Augmented Generation (RAG) flow for Android apps.
+A minimal project demonstrating Retrieval-Augmented Generation (RAG) flow in Android apps.
 
-## Architecture
+## 🧠 Architecture
 
-Android App → Backend API → Retrieve Context → Generate Answer → Response to UI
+Android App → Backend → Retrieve Context → Generate Answer → UI
 
-## Tech Stack
+## 📱 Tech Stack
 
-- Android: Kotlin, Jetpack Compose, ViewModel, Retrofit
-- Backend: Python, Flask
-- Retrieval: Simple keyword-based matching
-- Next step: Embeddings + Vector DB
+- Kotlin + Jetpack Compose
+- MVVM Architecture
+- Retrofit
+- Python Flask Backend
+- Simple RAG (keyword-based retrieval)
 
-## Why this project?
+## ✨ Features
 
-This project is a lightweight prototype to validate the end-to-end RAG flow before moving to more advanced retrieval approaches like embeddings and vector databases.
+- Ask question from Android app
+- Backend retrieves relevant data
+- Generates contextual response
+- Displays matched context
 
-## Features
+## 🚀 Future Improvements
 
-- Ask a question from Android UI
-- Send query to backend
-- Retrieve relevant knowledge
-- Return grounded answer
-- Display matched context in app
-
-## Future Improvements
-
-- Integrate OpenAI or other LLM APIs
+- Add OpenAI LLM integration
 - Replace keyword search with embeddings
-- Add Pinecone / Weaviate vector DB
-- Add Hilt dependency injection
-- Add loading/error design improvements
+- Integrate Pinecone / Weaviate
+- Add Hilt DI
 
-## Run Backend
+## 📸 Demo
+
+(Add screenshot here)
+
+## 🛠️ Run Backend
 
 ```bash
 cd backend
-python -m venv .venv
-source .venv/bin/activate  # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 python app.py
-```
-
-## Run Android App
-
-1. Open `android-app` in Android Studio
-2. Start backend locally on port 5000
-3. Run app on emulator
-4. Use `10.0.2.2` as backend host for Android emulator
-
-## Sample Questions
-
-- What is Android lifecycle?
-- What is Jetpack Compose?
-- Explain MVVM
