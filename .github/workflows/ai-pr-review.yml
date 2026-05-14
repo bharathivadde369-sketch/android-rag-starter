@@ -29,7 +29,7 @@ jobs:
 
       - name: Generate PR Diff
         run: |
-          git fetch origin ${{ github.base_ref }} --depth=1
+          git fetch origin ${{ github.base_ref }}
           git diff origin/${{ github.base_ref }}..HEAD > pr_diff.txt
 
       - name: Run AI Review
