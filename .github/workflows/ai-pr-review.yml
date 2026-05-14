@@ -29,7 +29,15 @@ jobs:
       - name: Generate PR Diff
         run: |
           git fetch origin ${{ github.base_ref }}
-          git diff origin/${{ github.base_ref }}...HEAD > pr_diff.txt
+          
+          # Check if a merge base exists
+          if git merge-base origin/${{ github.base_ref }} HEAD > /dev/null 2>&1; then
+               git diff origin/${{ github.base_ref }}...HEAD > pr_diff.txt
+          else
+          # No common ancestor — fall back to diffing just the HEAD commit
+              echo "⚠️ No merge base found, falling back to HEAD diff"
+              git diff HEAD~1..HEAD > pr_diff.txt 2>/dev/null || git show HEAD > pr_diff.txt
+          fi
           echo "Diff size: $(wc -l < pr_diff.txt) lines"
 
       - name: Run AI Review
