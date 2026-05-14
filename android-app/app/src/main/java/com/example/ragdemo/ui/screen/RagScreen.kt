@@ -25,7 +25,7 @@ import com.example.ragdemo.viewmodel.RagViewModel
 @Composable
 fun RagScreen(viewModel: RagViewModel) {
     val state by viewModel.uiState.collectAsState()
-
+    val test = "Testing github action code test"
     Column(
         modifier = Modifier
             .fillMaxSize()
