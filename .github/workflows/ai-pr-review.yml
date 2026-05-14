@@ -23,17 +23,24 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Install OpenAI SDK
-        run: |
-          pip install openai
+      - name: Install Dependencies
+        run: pip install openai requests
 
       - name: Generate PR Diff
         run: |
           git fetch origin ${{ github.base_ref }}
-          git diff origin/${{ github.base_ref }}..HEAD > pr_diff.txt
+          git diff origin/${{ github.base_ref }}...HEAD > pr_diff.txt
+          echo "Diff size: $(wc -l < pr_diff.txt) lines"
 
       - name: Run AI Review
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          REPO: ${{ github.repository }}
         run: |
+          if [ ! -s pr_diff.txt ]; then
+            echo "No diff found, skipping AI review."
+            exit 0
+          fi
           python .github/scripts/ai_review.py
