@@ -27,14 +27,16 @@ jobs:
         run: pip install openai requests
 
       - name: Generate PR Diff
+        env:
+          BASE_REF: ${{ github.base_ref }}
         run: |
-          git fetch origin ${{ github.base_ref }}
+          git fetch origin "$BASE_REF"
 
-          MERGE_BASE=$(git merge-base origin/${{ github.base_ref }} HEAD 2>/dev/null || echo "")
+          MERGE_BASE=$(git merge-base "origin/$BASE_REF" HEAD 2>/dev/null || echo "")
 
           if [ -n "$MERGE_BASE" ]; then
             echo "✅ Merge base found: $MERGE_BASE"
-            git diff origin/${{ github.base_ref }}...HEAD > pr_diff.txt
+            git diff "origin/$BASE_REF"...HEAD > pr_diff.txt
           else
             echo "⚠️ No merge base found, using full HEAD diff"
             git show HEAD > pr_diff.txt
